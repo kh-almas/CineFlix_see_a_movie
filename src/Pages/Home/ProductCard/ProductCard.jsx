@@ -3,26 +3,37 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {Button} from "react-bootstrap";
+import Badge from 'react-bootstrap/Badge';
+import useGetAllMovie from "../../../Hooks/useGetAllMovie.jsx";
+import { FaStar } from 'react-icons/fa';
 
 const ProductCard = () => {
+    const [movie] = useGetAllMovie();
+    console.log(movie);
     return (
-        <Row xs={1} md={3} className="g-4">
-            {Array.from({ length: 8 }).map((_, idx) => (
-                <Col key={idx}>
+        <Row xs={1} md={5} className="g-4 mt-3">
+            {movie.map((item, index) =>
+                <Col key={index}>
                     <Card>
-                        <Card.Img style={{height: '300px'}} variant="top" src="https://static.tvmaze.com/uploads/images/original_untouched/425/1064746.jpg" />
+                        <Card.Img style={{height: "300px"}} variant="top" src={item.show.image.original} />
+                        <div className="position-absolute mt-4 ms-3 ">
+                            <p className="bg-dark text-white px-2 py-1 d-inline rounded"><FaStar className="me-1"></FaStar><span className="mt-1">{item.show?.rating?.average || 0}</span></p>
+                        </div>
                         <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a longer card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.
-                            </Card.Text>
-                            <Button variant="primary w-100">View Details</Button>
+                            <Card.Title>{item.show.name}</Card.Title>
+                            <div>
+                                {
+                                    item.show?.genres.map(genre =>
+                                        <Badge bg="secondary me-1">genre</Badge>
+                                    )
+                                }
+
+                            </div>
                         </Card.Body>
+                        <Button variant="primary w-100">View details</Button>
                     </Card>
                 </Col>
-            ))}
+            )}
         </Row>
     );
 };
