@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import {Helmet} from "react-helmet";
 
 const SingleProduct = () => {
     const [movie, setMovie] = useState([]);
@@ -55,6 +56,9 @@ const SingleProduct = () => {
     return (
         <>
             <ToastContainer />
+            <Helmet>
+                <title>CineFlix || single movie</title>
+            </Helmet>
             <div className="mt-4 border" style={{maxWidth: "800px", margin: "auto"}}>
                 <Row>
 
